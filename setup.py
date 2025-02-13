@@ -25,7 +25,7 @@ def setup_package():
     name = 'MuPPI_dataset',
 
     version = 0.0,
-    python_requires  = '==3.8',
+    python_requires  = '==3.8.5',
     packages = find_packages(),
 
     author = "Dev Lis",
