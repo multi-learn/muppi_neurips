@@ -1,0 +1,89 @@
+# The base configuration of the benchmark
+log: True
+name: ["MuPPI_14view_EMF_1",]
+label: "mono_vs_multi"
+file_type: ".hdf5"
+views:
+pathf: "/data1/home/baptiste.bauvin/Datasets/Alexis/last/"
+nice: 0
+random_state: 42
+nb_cores: 1
+full: False
+debug: False
+res_dir: "/data1/home/baptiste.bauvin/Results/Alexis/"
+track_tracebacks: True
+
+# All the classification-realted configuration options
+split: 0.30
+nb_folds: 5
+nb_class: 2
+classes: ['mono_clustered', 'multi_clustered']
+type: ["multiview", "monoview"]
+algos_monoview: ["decision_tree", "random_forest", "imbalance_bagging"]
+algos_multiview: ["weighted_linear_early_fusion", "weighted_linear_late_fusion", "mvml", "mumbo", "mucombo"]
+stats_iter: 5
+metrics:
+  accuracy_score: {}
+  f1_score:
+    average: "binary"
+metric_princ: "f1_score"
+hps_type: "None"
+hps_args: {}
+
+decision_tree:
+  max_depth: 3
+  criterion: 'gini'
+  splitter: 'best'
+
+random_forest:
+  n_estimators: 43
+  max_depth: 87
+  criterion: 'gini'
+
+imbalance_bagging:
+  n_estimators: 5
+  sampling_strategy: 'auto'
+
+
+weighted_linear_early_fusion:
+  view_weights: null
+  monoview_classifier_name: "random_forest"
+  monoview_classifier_config:
+    random_forest:
+      n_estimators: 72
+      max_depth: 124
+      criterion: "gini"
+      splitter: "best"
+
+weighted_linear_late_fusion:
+  weights: null
+  classifiers_names: "imbalance_bagging"
+  classifier_configs:
+    imbalance_bagging:
+      n_estimators: 5
+      sampling_strategy: 'auto'
+
+mvml:
+  lmbda: 0.1
+  eta: 0.1
+  nystrom_param: 0.15
+  n_loops: 63
+  precision: 0.004
+  learn_A: 0
+  kernel: 'rbf'
+  learn_w: 0
+
+mumbo:
+  base_estimator:
+    decision_tree:
+      max_depth: 3
+  n_estimators: 89
+  best_view_mode: edge
+
+mucombo:
+  base_estimator:
+    decision_tree:
+      max_depth: 3
+  n_estimators: 134
+
+

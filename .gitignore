@@ -1,0 +1,41 @@
+#mupp_neurips
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Environnements virtuels
+venv/
+env/
+*.venv
+
+# Logs et debug
+*.log
+*.out
+*.err
+
+# Fichiers de config et secrets
+.env
+*.ini
+*.json
+*.toml
+config.yaml
+
+# Outils de dev
+.coverage
+*.cover
+htmlcov/
+mypy_cache/
+pytest_cache/
+
+# Dépendances et artefacts de build
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
+
+# Datasets et doc
+datasets/
+data/
+doc/
+docker/

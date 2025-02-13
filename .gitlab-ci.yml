@@ -1,0 +1,29 @@
+doc:
+    image: registry.gitlab.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+    tags:
+        - docker
+    only:
+        - main
+        - doc
+    script:
+        - python3 setup.py install
+        - python3 setup.py build_sphinx
+    artifacts:
+        paths:
+          - public
+
+
+
+pages:
+    image: registry.gitlab.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+    tags:
+        - docker
+    only:
+        - main
+    script:
+        - python3 setup.py install
+        - python3 setup.py build_sphinx
+        - cp -r build/sphinx/html public
+    artifacts:
+        paths:
+          - public

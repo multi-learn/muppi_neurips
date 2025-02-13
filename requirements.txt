@@ -1,0 +1,9 @@
+sphinx==5
+pandas
+numpy
+h5py
+scipy
+plotly
+goatools
+imbalanced-learn
+mistune==0.8.4
