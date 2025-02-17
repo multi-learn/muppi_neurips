@@ -1,9 +1,9 @@
-
 #! /bin/bash
 
 # Decompress data directory and go to the rawData directory
 cd ../..
-unzip data.zip
+unzip datasets/data.zip
+mv data/rawData_minimal data/rawData  # because there is no rawData directory in the zip file
 cd data/rawData
 
 # download the ID map from uniprot
