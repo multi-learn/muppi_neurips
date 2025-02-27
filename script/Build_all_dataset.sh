@@ -1,8 +1,7 @@
-
 #! /bin/bash
 
 cd 3UTR_Complexes_view
-sh Build_3UTR_Complexes_dataset.py
+python Build_3UTR_Complexes_dataset.py
 
 cd ../Cancer_Mutations_view
 sh Build_CancerMutations_dataset.sh
@@ -26,7 +25,7 @@ cd ../PPInetwork_Embedding_view
 sh Build_PPInetEmbedding_dataset.sh
 
 cd ../PPInetwork_topology_view
-sh Build_PPInetwork_topology_dataset.py
+python Build_PPInetwork_topology_dataset.py
 
 cd ../Protein_Domains_view
 sh Build_ProteinDomains_dataset.sh
