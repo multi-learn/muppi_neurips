@@ -76,8 +76,10 @@ alter_3UTR = alter_3UTR[~alter_3UTR.Nascent.isin(emf_alter_3UTR.Nascent)]
 alter_3UTR = pd.concat([alter_3UTR, emf_alter_3UTR], axis=0)
 
 # Load the CrossReference table GeneSymbol / UniprotAC
-crossref = pd.read_csv(RAWDATA_DIR + "GeneSymbol_rainet.csv",
-                       sep='\t', header=0)
+# HACK: Replace the file GeneSymbole_rainet.csv by GeneSymbolCrossReference.csv
+# TODO: Find the correct file
+crossref = pd.read_csv(RAWDATA_DIR + "GeneSymbolCrossReference.csv",
+                       sep=',', header=0)
 
 # Identify the nascents which are identified as multi_utr and single_utr
 wrong = alter_3UTR[["Nascent", "multi_or_single_UTR"]].drop_duplicates()
@@ -89,12 +91,12 @@ alter_3UTR = alter_3UTR[~((alter_3UTR.Nascent.isin(wrong)) &
 
 # Translate the nascent column from GeneSymbol to UniProtAC
 alter_3UTR = alter_3UTR.merge(crossref, left_on="Nascent",
-                              right_on="GeneSymbol")
-alter_3UTR = alter_3UTR[alter_3UTR.UniProtAC.isin(UTRcomplex_df.Nascent)]
+                              right_on="uniprotGeneSymbol")
+alter_3UTR = alter_3UTR[alter_3UTR.protein_id.isin(UTRcomplex_df.Nascent)]
 
 # Create a counting table with proteins in index and binding_classes in columns
 alter_3UTR_table = createTable(alter_3UTR,
-                               col_to_indexes="UniProtAC",
+                               col_to_indexes="protein_id",
                                col_to_features="binding_class")
 
 # Add rows full of zeroes for the PPI proteins that are not in the table
@@ -120,6 +122,7 @@ UTRfasta_df = pd.DataFrame(ENSG_list.value_counts(), columns=["count"])
 UTRfasta_df = UTRfasta_df.reset_index()
 
 # Load the cross reference id table
+# FIXME: The file rainetCrossReference.csv is missing
 crossref_ENSG = pd.read_csv(RAWDATA_DIR + "rainetCrossReference.csv",
                             sep="\t", header=0)
 
