@@ -20,4 +20,4 @@ PPInetwork_df = PPInetwork_df[PPInetwork_df.columns.intersection(SELCTED_COLUMNS
 
 # Export
 PPInetwork_df.to_csv(VIEW_DIR + "PPInetwork_topology.txt", sep="\t",
-                     encoding="utf-8", index=False)
+                     encoding="utf-8", index=True)
