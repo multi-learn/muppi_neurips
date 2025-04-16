@@ -42,11 +42,14 @@ def createTable(df, col_to_indexes, col_to_features):
     # Count the number of those strings and put them in a new column
     val = df.pair.value_counts().reset_index()
     df = df.drop_duplicates()
-    df = df.merge(val, left_on="pair", right_on="index")
+
+    # CHANGED: Using the right col name and correct the merge
+    val['count'] = val['count'].astype(str)
+    df = df.merge(val, on="pair")
     # Pivot the df with col_to_indexes as index, col_to_features as columns,
     # and the value counts as values
     df = df.pivot(index=col_to_indexes, columns=col_to_features,
-                  values='pair_y')
+                  values='count')
     # Convert np.nan to zeroes
     df = df.replace(np.nan, 0).astype(int)
 
@@ -57,19 +60,20 @@ def fillAncestorsTerms(table, heir_term, anc_list):
     """This function adds to an ontology table the features of an heir term's
     ancestor terms, and adds them together"""
 
-    # For each ancestor terms
-    for anc in anc_list:
-        # If it already has a column in the final df, add 1's for each protein
-        # annotated with the term heir, keeping the 1's already present in the
-        # ancestor column.
-        if anc in table.columns:
-            table[anc] += table[heir_term]
-        # If it doesn't have a column, create one that copies the column
-        # of the term heir
-        else:
-            table[anc] = table[heir_term]
+    # For ancestors already present: we add the heir_term column
+    present_anc = [anc for anc in anc_list if anc in table.columns]
+    for anc in present_anc:
+        table[anc] += table[heir_term]
 
-    return (table)
+    # For ancestors that do not yet exist: we prepare a DataFrame
+    new_anc = [anc for anc in anc_list if anc not in table.columns]
+    if new_anc:
+        # Create a new dataframe with the columns
+        new_cols = pd.DataFrame({anc: table[heir_term] for anc in new_anc}, index=table.index)
+        # CHANGED: Use of pd.concat
+        table = pd.concat([table, new_cols], axis=1)
+
+    return table
 
 
 def uniquePairs(arr):
@@ -90,9 +94,10 @@ def uniquePairs(arr):
     # list of these positions in an array which is returned as output.
     pairs = []
     for p in pos:
-        pairs.append(np.where(uidx == p)[0])
+        indices = np.where(uidx == p)[0]
+        pairs.append(indices.tolist())
 
-    return np.array(pairs)
+    return pairs
 
 
 def delRedundantCols(table):

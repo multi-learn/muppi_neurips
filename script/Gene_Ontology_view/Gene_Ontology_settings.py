@@ -1,4 +1,6 @@
 # Define paths
+from tqdm import tqdm
+
 RAWDATA_DIR = "../../data/rawData/"
 VIEW_DIR = "../../data/Gene_Ontology_view/"
 FUNCTIONS_DIR = '../Functions/'
@@ -104,7 +106,7 @@ def get_subGOA_table(GO_subClass):
                                col_to_indexes="DB_Object_ID")
 
     # For all GO_IDs of the sub graph except the root terms
-    for go in subGOA_df.GO_ID.unique():
+    for go in tqdm(subGOA_df.GO_ID.unique(), leave=False, desc="GO terms"):
         if go not in ROOT_GO_ID:
             # Search and store the previous terms of the current GO_ID
             gosubdag = GoSubDag([go], GO_tree, prt=None,
@@ -136,7 +138,7 @@ def get_subGOA_table(GO_subClass):
 subClasses = GOA_df.GO_class.unique()
 
 # For each sub class
-for subClass in subClasses:
+for subClass in tqdm(subClasses, desc="Traitement des sous-classes"):
     # Generate the sub GOA table and export it
     GOA_table = get_subGOA_table(subClass)
     GOA_table.to_csv(VIEW_DIR + "Gene_Ontology_{}.txt".format(subClass),

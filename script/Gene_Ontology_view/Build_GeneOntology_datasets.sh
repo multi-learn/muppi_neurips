@@ -5,13 +5,13 @@ cd ../../data/rawData
 
 # Download and unzip GO annotations file
 wget ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/goa_uniprot_all.gaf.gz
-gunzip goa_uniprot_all.gaf.gz
 
 # Download the hierarchical tree of GO terms
-wget http://purl.obolibrary.org/obo/go-basic.obo
+wget https://current.geneontology.org/ontology/go-basic.obo
 
 # Selects from the annotation file the lines concerning human proteins.
-egrep -w 'protein\staxon:9606\|?' goa_uniprot_all.gaf > goa_uniprot_human.gaf
+# HACK: Instead of unzipping the entire goa_uniprot_all.gaf.gz file, we read it line by line
+gzcat goa_uniprot_all.gaf.gz | egrep -w 'protein\staxon:9606\|?' | tee goa_uniprot_human.gaf | pv > /dev/null
 
 # Delete useless files
 rm goa_uniprot_all*
