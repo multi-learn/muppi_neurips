@@ -2,6 +2,7 @@
 
 cd ../../data/rawData
 
+# CHANGED: Update the download link
 # Download HPA data
 wget https://www.proteinatlas.org/download/tsv/rna_tissue_consensus.tsv.zip
 unzip rna_tissue_consensus.tsv.zip

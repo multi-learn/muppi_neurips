@@ -38,13 +38,17 @@ CR_uniprotAC_ENSG = explodeValues(crossref, "UniProtAC", "Ensembl", "; ")
 CR_uniprotAC_ENSG = CR_uniprotAC_ENSG[CR_uniprotAC_ENSG.UniProtAC.isin(
     PPInetwork_proteins)]
 
+# CHANGED: Ignore the annotation version
+CR_uniprotAC_ENSG["Ensembl"] = CR_uniprotAC_ENSG["Ensembl"].apply(lambda s: s.split(".")[0])
+
 # Merge the df with the crossref to get the UniprotACs
 RNAtissue_df = RNAtissue_df.merge(CR_uniprotAC_ENSG, left_on="Gene",
                                   right_on="Ensembl")
 
 # Create a table from this df, with tissues as columns, UniprotAC as indexes,
-# and NX as values
-RNAtissue_df = pd.pivot_table(RNAtissue_df, values="NX", index="UniProtAC",
+# and nTPM (NX) as values
+# HACK: Think nTPM is NX (previously used as values)
+RNAtissue_df = pd.pivot_table(RNAtissue_df, values="nTPM", index="UniProtAC",
                               columns="Tissue")
 
 # Export it
