@@ -18,6 +18,7 @@ SELCTED_COLUMNS = ['name', 'AverageShortestPathLength', 'BetweennessCentrality',
 # Select them and set the index on proteins ids
 PPInetwork_df = PPInetwork_df[PPInetwork_df.columns.intersection(SELCTED_COLUMNS)].set_index('name')
 
+# CHANGED: Adding indexes
 # Export
 PPInetwork_df.to_csv(VIEW_DIR + "PPInetwork_topology.txt", sep="\t",
                      encoding="utf-8", index=True)

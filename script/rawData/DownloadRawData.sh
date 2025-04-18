@@ -1,5 +1,6 @@
 #! /bin/bash
 
+# CHANGED: Using rawData_minimal instead of rawData
 # Decompress data directory and go to the rawData directory
 cd ../..
 unzip datasets/data.zip

@@ -47,6 +47,7 @@ crossref_ENST = explodeValues(crossref,
                               col_to_explode="Ensembl_TRS",
                               separator="; ")
 
+# HACK: PPInetwork_proteins is not defined in this script so I'm going to use PPIproteins instead
 # Select only PPI proteins, and sort the df
 crossref_ENST = crossref_ENST[crossref_ENST.UniProtAC.isin(PPIproteins)  # PPI proteins not PPInetwork proteins I think
                               & (crossref_ENST.Ensembl_TRS != '')]
