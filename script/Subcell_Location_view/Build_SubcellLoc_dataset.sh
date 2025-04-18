@@ -2,6 +2,7 @@
 
 cd ../../data/rawData
 
+# CHANGED: Update the download link
 # Download HPA data
 wget https://www.proteinatlas.org/download/tsv/subcellular_location.tsv.zip
 unzip subcellular_location.tsv.zip

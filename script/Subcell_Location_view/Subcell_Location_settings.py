@@ -37,6 +37,9 @@ CR_uniprotAC_ENSG = explodeValues(crossref, "UniProtAC", "Ensembl", "; ")
 CR_uniprotAC_ENSG = CR_uniprotAC_ENSG[CR_uniprotAC_ENSG.UniProtAC.isin(
     PPInetwork_proteins)]
 
+# CHANGED: Ignore the annotation version
+CR_uniprotAC_ENSG["Ensembl"] = CR_uniprotAC_ENSG["Ensembl"].apply(lambda s: s.split(".")[0])
+
 # Merge the df with the crossref to get the UniprotACs
 subloc_df = subloc_df.merge(CR_uniprotAC_ENSG, left_on="Gene",
                             right_on="Ensembl")
