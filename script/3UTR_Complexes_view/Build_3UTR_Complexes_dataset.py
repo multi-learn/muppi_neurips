@@ -76,7 +76,7 @@ alter_3UTR = alter_3UTR[~alter_3UTR.Nascent.isin(emf_alter_3UTR.Nascent)]
 alter_3UTR = pd.concat([alter_3UTR, emf_alter_3UTR], axis=0)
 
 # Load the CrossReference table GeneSymbol / UniprotAC
-# HACK: Replace the file GeneSymbole_rainet.csv by GeneSymbolCrossReference.csv
+# HACK: Replace temporary the file GeneSymbole_rainet.csv by GeneSymbolCrossReference.csv
 # TODO: Find the correct file
 crossref = pd.read_csv(RAWDATA_DIR + "GeneSymbolCrossReference.csv",
                        sep=',', header=0)
@@ -90,6 +90,9 @@ alter_3UTR = alter_3UTR[~((alter_3UTR.Nascent.isin(wrong)) &
                           (alter_3UTR.multi_or_single_UTR == "single_utr"))]
 
 # Translate the nascent column from GeneSymbol to UniProtAC
+
+# HACK: The columns names are "protein_id" (instead of UniProtAC)
+#  and "uniprotGeneSymbol" (instead of GeneSymbol) in the replacement file
 alter_3UTR = alter_3UTR.merge(crossref, left_on="Nascent",
                               right_on="uniprotGeneSymbol")
 alter_3UTR = alter_3UTR[alter_3UTR.protein_id.isin(UTRcomplex_df.Nascent)]
@@ -122,17 +125,16 @@ UTRfasta_df = pd.DataFrame(ENSG_list.value_counts(), columns=["count"])
 UTRfasta_df = UTRfasta_df.reset_index()
 
 # Load the cross reference id table
-# FIXME: The file rainetCrossReference.csv is missing
+# HACK: The file rainetCrossReference.csv has been generated
 crossref_ENSG = pd.read_csv(RAWDATA_DIR + "rainetCrossReference.csv",
                             sep="\t", header=0)
 
 # In the id mapping table, select only the GeneSymbol to UniProtAC translations
-crossref_ENSG = crossref_ENSG[(crossref_ENSG.sourceDB == "Ensembl") &
-                              (crossref_ENSG.protein_id.isin(PPInetwork_proteins))][["protein_id", "crossReferenceID"]]
+crossref_ENSG = crossref_ENSG[crossref_ENSG.protein_id.isin(PPInetwork_proteins)]
 
 # Merge the id mapping table with the UTRfasta df to translate the ids
 UTRfasta_df = UTRfasta_df.merge(crossref_ENSG, left_on="index",
-                                right_on="crossReferenceID")
+                                right_on="Ensembl")
 
 # List the UniprotAC that are translated into several ENSG and delete their
 # rows in the df
