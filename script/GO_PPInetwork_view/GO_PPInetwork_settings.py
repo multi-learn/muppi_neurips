@@ -18,10 +18,10 @@ GOA_CC_df = pd.read_csv(GO_VIEW_DIR + 'Gene_Ontology_CC.txt',
                         sep='\t', header=0, index_col=0)
 
 # Load the edgelist of PPI network
-PPInet_edges_df = pd.read_csv(RAWDATA_DIR + "human_binary_network.txt",
-                              sep='\t',
-                              header=None,
-                              names=["Interactor_A", "Interactor_B"])
+PPInet_edges_df = pd.read_csv(RAWDATA_DIR + "PPInetwork_edgelist.csv",
+                              sep=',',
+                              header=0,
+                              names=["interactorA_id", "interactorB_id"])
 
 # Load the PPI proteins list
 with open(RAWDATA_DIR + "PPInetwork_proteins.txt", "r") as f:
@@ -54,8 +54,8 @@ def get_edge_weights(GOA_df):
     # Create a sub df from the list of edges of the PPI, by selecting the edges
     # between the proteins that are present in the df GOA used to calculate the
     # weights.
-    mask = PPInet_edges_df.Interactor_A.isin(GOA_df.index) & \
-           PPInet_edges_df.Interactor_B.isin(GOA_df.index)
+    mask = PPInet_edges_df.interactorA_id.isin(GOA_df.index) & \
+           PPInet_edges_df.interactorB_id.isin(GOA_df.index)
     weighted_edges_df = PPInet_edges_df[mask]
 
     # Compute the number of common GOterms between the proteins of each edge and
