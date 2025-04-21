@@ -43,7 +43,9 @@ crossref = crossref[crossref.protein_id.isin(PPInetwork_proteins)]
 # Selects the proteins present in the PPInetwork and removes duplicates
 HPOA_df = HPOA_df.merge(crossref, left_on="gene_symbol",
                         right_on="uniprotGeneSymbol")
-HPOA_df = HPOA_df[["protein_id", "HPO_Term_ID"]].drop_duplicates()
+
+# CHANGED: Using the right column name
+HPOA_df = HPOA_df[["protein_id", "hpo_id"]].drop_duplicates()
 
 # Test hypergeometric sur les emf annotées HPO
 # with open( RAWDATA_DIR + "238_EMFs.txt", "r") as f:
@@ -63,14 +65,14 @@ HPOA_df = HPOA_df[["protein_id", "HPO_Term_ID"]].drop_duplicates()
 HPO_parents = get_go2parents(HPO_tree, relationships={'is_a'})
 
 # Create an occurrence table with prot in index and hpo_id in column.
-HPOA_table = createTable(HPOA_df, col_to_features="HPO_Term_ID",
+HPOA_table = createTable(HPOA_df, col_to_features="hpo_id",
                          col_to_indexes="protein_id")
 
 # Define root hpo term
 ROOT_HPO_ID = ['HP:0000001']
 
 # For all hpo_id in the graph except the root terms
-for hpo_id in HPOA_df.HPO_Term_ID.unique():
+for hpo_id in HPOA_df.hpo_id.unique():
 
     # Create an empty hpo_id ancestor dict and store in value the parent terms
     # of the hpo_id with hpo_id as key
