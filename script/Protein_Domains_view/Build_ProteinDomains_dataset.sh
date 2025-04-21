@@ -1,35 +1,37 @@
-#! /bin/bash
+#!/bin/bash
 
-# Create a file where the Interpro data will be put in process
-mkdir ../../data/rawData/Interpro_data
+set -e  # Stop on error
+
+# Créer le dossier de destination
+mkdir -p ../../data/rawData/Interpro_data
 cd ../../data/rawData/
 
-# Download interpro data
-wget ftp://ftp.ebi.ac.uk/pub/databases/interpro/ParentChildTreeFile.txt
+# Télécharger les fichiers si non présents
+[ ! -f ParentChildTreeFile.txt ] && wget https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/ParentChildTreeFile.txt
 cd Interpro_data/
-wget ftp://ftp.ebi.ac.uk/pub/databases/interpro/protein2ipr.dat.gz
-gunzip protein2ipr.dat.gz
+[ ! -f protein2ipr.dat.gz ] && wget https://ftp.ebi.ac.uk/pub/databases/interpro/current_release/protein2ipr.dat.gz
 
-# Extract all the columns except the third into a new file
-cut -f 1,2 protein2ipr.dat > protein2ipr.txt
+# Vérifier que le fichier de protéines PPI existe
+if [ ! -f ../PPInetwork_proteins.txt ]; then
+    echo "Fichier ../PPInetwork_proteins.txt introuvable."
+    exit 1
+fi
 
-# Divide the file in segments of 100M
-split -l 100000000 protein2ipr.txt segment_
+# Extraire les protéines du réseau PPI directement depuis l’archive compressée
+echo "Filtrage des protéines depuis le fichier compressé..."
+gzcat protein2ipr.dat.gz \
+    | cut -f 1,2 \
+    | awk -F'\t' 'NR==FNR{c[$1]; next} $1 in c' ../PPInetwork_proteins.txt - \
+    > ../PPIprotein2ipr.txt
+echo "Fichier ../PPIprotein2ipr.txt généré."
 
-# In all segments, select the proteins of PPI network
-for segment in segment_*
-do
-	awk -F'\t' 'NR==FNR{c[$1]++;next};c[$1]' ../PPInetwork_proteins.txt $segment > PPIprotein2ipr_$segment.txt
-	echo $segment \done
-done
-
-# Concatenate extracted rows
-cat PPIprotein2ipr_* > ../PPIprotein2ipr.txt
-
-# Remove usless files
+# Nettoyage
 cd ..
 rm -r Interpro_data
+echo "Dossier Interpro_data supprimé."
 
-# Run the python script to format the dataset
+# Exécuter le script Python de formatage
 cd ../../script/Protein_Domains_view/
+echo "Exécution du script Python..."
 python Protein_Domains_settings.py
+echo "Script Python terminé."
