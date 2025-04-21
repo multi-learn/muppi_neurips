@@ -10,7 +10,7 @@ sed '1,5d' elms_index.tsv | cut -f 2,6 > elm_classes.txt
 rm elms_index.tsv
 
 # Get elm instances data
-wget http://elm.eu.org/instances.tsv?q=*
+wget "http://elm.eu.org/instances.tsv?q=*"
 
 # Select elm instances that have been experimentaly observed in human
 # And extract only the list of elm
