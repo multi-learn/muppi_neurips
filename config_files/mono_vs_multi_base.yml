@@ -1,16 +1,16 @@
 # The base configuration of the benchmark
 log: True
-name: ["MuPPI_14view_EMF",]
+name: ["MuPPI_2025_14view_EMF",]
 label: "mono_vs_multi"
 file_type: ".hdf5"
 views:
-pathf: "path/hdf5/file/"
+pathf: "../data/dataset_compilation_to_hdf5/"
 nice: 0
 random_state: 42
-nb_cores: 1
+nb_cores: 4
 full: False
 debug: False
-res_dir: "path/to/results/"
+res_dir: "../results"
 track_tracebacks: True
 
 # All the classification-realted configuration options
@@ -20,7 +20,7 @@ nb_class: 2
 classes: ['mono_clustered', 'multi_clustered']
 type: ["multiview", "monoview"]
 algos_monoview: ["decision_tree", "random_forest", "imbalance_bagging"]
-algos_multiview: ["weighted_linear_early_fusion", "weighted_linear_late_fusion", "mvml", "mumbo", "mucombo"]
+algos_multiview: ["weighted_linear_early_fusion", "weighted_linear_late_fusion", "mumbo", "mucombo"]
 stats_iter: 5
 metrics:
   accuracy_score: {}
@@ -63,15 +63,15 @@ weighted_linear_late_fusion:
       n_estimators: 5
       sampling_strategy: 'auto'
 
-mvml:
-  lmbda: 0.1
-  eta: 0.1
-  nystrom_param: 1
-  n_loops: 63
-  precision: 0.004
-  learn_A: 0
-  kernel: 'rbf'
-  learn_w: 0
+#mvml:
+#  lmbda: 0.1
+#  eta: 0.1
+#  nystrom_param: 1
+#  n_loops: 63
+#  precision: 0.004
+#  learn_A: 0
+#  kernel: 'rbf'
+#  learn_w: 0
 
 mumbo:
   base_estimator:

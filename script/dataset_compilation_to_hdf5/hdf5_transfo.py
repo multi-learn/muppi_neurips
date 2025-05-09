@@ -93,8 +93,8 @@ df_dict["Subcell_Location"] = pd.read_csv(DATA_DIR +
 df_dict["Tissue_Expression"] = pd.read_csv(DATA_DIR +
                                            'Tissue_Expression_view/Tissue_Expression{}.txt'.format(suffix_NoNA),
                                            sep='\t', header=0, index_col=0)
-df_dict["SDNE_PPInetwork"] = pd.read_csv(DATA_DIR +
-                                         'PPInetwork_Embedding_view/SDNE_PPInetwork.txt',
+df_dict["SAGE_PPInetwork"] = pd.read_csv(DATA_DIR +
+                                         'PPInetwork_Embedding_view/SAGE_PPInetwork.txt',
                                          sep=' ', header=None, index_col=0)
 df_dict["Gene_Ontology_BP"] = pd.read_csv(DATA_DIR +
                                           'Gene_Ontology_view/Gene_Ontology_BP{}.txt'.format(suffix_light),
@@ -133,17 +133,17 @@ df_dict["Linear_Motifs"] = pd.read_csv(DATA_DIR +
                                        sep='\t', header=0, index_col=0)
 
 # For full version of dataset, load the Cancer_Mutations view
-if full_version:
-    df_dict["Cancer_Mutations"] = pd.read_csv(DATA_DIR +
-                                              'Cancer_Mutations_view/Cancer_Mutations_numerised.txt',
-                                              sep='\t', header=0, index_col=0)
+# if full_version:
+#    df_dict["Cancer_Mutations"] = pd.read_csv(DATA_DIR +
+#                                              'Cancer_Mutations_view/Cancer_Mutations_numerised.txt',
+#                                              sep='\t', header=0, index_col=0)
 
 ###############################################
 # Prepare datasets
 ###############################################
 
 # Change the hdf5 file name in function of the labels and the light version
-h5_path = DATA_DIR + "dataset_compilation_to_hdf5/MuPPI_{}{}view{}_{}.hdf5".format(
+h5_path = DATA_DIR + "dataset_compilation_to_hdf5/MuPPI_2025_{}{}view{}_{}.hdf5".format(
     len(df_dict), suffix_full, suffix_light, which_labels)
 
 # Create the hdf5 file where the df will be stocked
@@ -171,7 +171,7 @@ else:
     for key in df_dict.keys():
         df_dict[key] = MissingExamples(df_dict[key], zero_or_nan="nan")
 
-        # Convert all the index to string
+        # CHANGED: Convert all the index to string
         df_dict[key].index = df_dict[key].index.astype(str)
         df_dict[key] = df_dict[key].sort_index()
 

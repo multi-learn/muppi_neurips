@@ -1,16 +1,16 @@
 # The base configuration of the benchmark
 log: True
-name: ["MuPPI_14view_EMF_oversampled",]
+name: ["MuPPI_2025_14view_EMF_oversampled",]
 label: "multi_vs_emf_over"
 file_type: ".hdf5"
 views:
-pathf: "path/hdf5/oversampled/file/"
+pathf: "../data/dataset_compilation_to_hdf5/"
 nice: 0
 random_state: 42
 nb_cores: 1
 full: False
 debug: False
-res_dir: "path/to/results/"
+res_dir: "../results"
 track_tracebacks: True
 
 # All the classification-realted configuration options

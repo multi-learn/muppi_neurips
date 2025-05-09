@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# CHANGED: Replacing sh by python for python scripts
+
 cd 3UTR_Complexes_view
 python Build_3UTR_Complexes_dataset.py
 
