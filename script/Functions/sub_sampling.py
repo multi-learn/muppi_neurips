@@ -16,10 +16,10 @@ n_subsampling = 10
 ratio = 1
 
 # Define the paths
-base_dataset_file_path = "../../data/dataset_compilation_to_hdf5/MuPPI_14view_EMF.hdf5"
+base_dataset_file_path = "../../../summit/config_files/MuPPI_2025_14view_EMF.hdf5"
 output_path = "../../data/dataset_compilation_to_hdf5/balanced/"
-config_base_path = "../../config_files/multi_vs_emf_subsampling.yml"
-config_saving_path = "../../config_files/sub_sample/"
+config_base_path = "../../config_files/multi_vs_emf_base.yml"
+config_saving_path = "../../config_files/balanced/"
 
 # Create directories
 if not os.path.isdir( output_path[ :-1]):
@@ -61,7 +61,7 @@ for rs in range(n_subsampling):
     labels[chosen_neg_indices] = 0
 
     # Build a configuration file for the curent sub sampled dataset
-    base_config["name"] = ["MuPPI_14view_EMF_sub_{}".format(rs)]
+    base_config["name"] = ["MuPPI_2025_14view_EMF_sub_{}".format(rs)]
     with open(os.path.join(config_saving_path,
                            "multi_vs_emf_subsampling_{}.yml".format(rs)),
               "w") as stream_out:
