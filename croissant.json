@@ -1,0 +1,132 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/"
+  },
+  "@type": "sc:Dataset",
+  "name": "Multimodal dataset of Protein Protein Interaction",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "description": "A Multi modal protein protein interaction dataset for EMF prediction",
+  "citeAs": "",
+  "license": "New BSD License",
+  "url": "https://gitlab.lis-lab.fr/dev/muppi-dataset-neurips",
+  "keywords": ["protein", "EMF", "multi-modal", "graph"],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "hdf5_file",
+      "contentUrl": "CHEMIN_VERS_FICHIER.h5",
+      "encodingFormat": "application/x-hdf5",
+      "croissant:structure": {
+        "root": {
+          "groups": [
+            {
+              "name": "Metadata",
+              "description": "",
+              "datasets": [
+                {
+                  "name": "example_ids",
+                  "description": "",
+                  "dataType": "float32",
+                  "shape": [7692]
+                }
+              ]
+            }
+          ],
+          "datasets": [
+            {
+              "name": "Labels",
+              "description": "Labels of the samples (10129 mono_clustered, 3316 multi_clustered and 238 EMF)",
+              "dataType": "float32",
+              "shape": [13683]
+            },
+            {
+              "name": "View0",
+              "description": "PPI network topology view",
+              "dataType": "float32",
+              "shape": [13683, 9]
+            },
+            {
+              "name": "View1",
+              "description": "Sub-cellular location view",
+              "dataType": "float32",
+              "shape": [13683, 49]
+            },
+            {
+              "name": "View2",
+              "description": "Tissue expression view",
+              "dataType": "float32",
+              "shape": [13683, 49]
+            },
+            {
+              "name": "View3",
+              "description": "PPI network embedding view",
+              "dataType": "float32",
+              "shape": [13683, 128]
+            },
+            {
+              "name": "View4",
+              "description": "Gene Ontology Biological Process view",
+              "dataType": "float32",
+              "shape": [13683, 10729]
+            },
+            {
+              "name": "View5",
+              "description": "Gene Ontology Cellular Component  view",
+              "dataType": "float32",
+              "shape": [13683, 1735]
+            },
+            {
+              "name": "View6",
+              "description": "Gene Ontology Molecular Function",
+              "dataType": "float32",
+              "shape": [13683, 3727]
+            },
+            {
+              "name": "View7",
+              "description": "Gene Ontology BP PPI network embedding",
+              "dataType": "float32",
+              "shape": [13683, 128]
+            },
+            {
+              "name": "View8",
+              "description": "Gene Ontology Cellular Component PPI network embedding",
+              "dataType": "float32",
+              "shape": [13683, 128]
+            },
+            {
+              "name": "View9",
+              "description": "Phenotype Ontology view",
+              "dataType": "float32",
+              "shape": [13683, 9076]
+            },
+            {
+              "name": "View10",
+              "description": "Protein Domains view",
+              "dataType": "float32",
+              "shape": [13683, 12443]
+            },
+            {
+              "name": "View11",
+              "description": "Post Translational Modifications view",
+              "dataType": "float32",
+              "shape": [13683, 31]
+            },
+            {
+              "name": "View12",
+              "description": "3’UTR Complexes view",
+              "dataType": "float32",
+              "shape": [13683, 10]
+            },
+            {
+              "name": "View13",
+              "description": "Linear Motifs view",
+              "dataType": "float32",
+              "shape": [13683, 314]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
