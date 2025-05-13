@@ -18,20 +18,15 @@ if [ ! -f ../PPInetwork_proteins.txt ]; then
 fi
 
 # Extraire les protéines du réseau PPI directement depuis l’archive compressée
-echo "Filtrage des protéines depuis le fichier compressé..."
 gzcat protein2ipr.dat.gz \
     | cut -f 1,2 \
     | awk -F'\t' 'NR==FNR{c[$1]; next} $1 in c' ../PPInetwork_proteins.txt - \
     > ../PPIprotein2ipr.txt
-echo "Fichier ../PPIprotein2ipr.txt généré."
 
 # Nettoyage
 cd ..
 rm -r Interpro_data
-echo "Dossier Interpro_data supprimé."
 
 # Exécuter le script Python de formatage
 cd ../../script/Protein_Domains_view/
-echo "Exécution du script Python..."
 python Protein_Domains_settings.py
-echo "Script Python terminé."

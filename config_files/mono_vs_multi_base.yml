@@ -7,7 +7,7 @@ views:
 pathf: "../data/dataset_compilation_to_hdf5/"
 nice: 0
 random_state: 42
-nb_cores: 4
+nb_cores: 32
 full: False
 debug: False
 res_dir: "../results"
@@ -62,16 +62,6 @@ weighted_linear_late_fusion:
     imbalance_bagging:
       n_estimators: 5
       sampling_strategy: 'auto'
-
-#mvml:
-#  lmbda: 0.1
-#  eta: 0.1
-#  nystrom_param: 1
-#  n_loops: 63
-#  precision: 0.004
-#  learn_A: 0
-#  kernel: 'rbf'
-#  learn_w: 0
 
 mumbo:
   base_estimator:

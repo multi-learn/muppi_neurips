@@ -106,16 +106,17 @@ def get_subGOA_table(GO_subClass):
                                col_to_indexes="DB_Object_ID")
 
     # For all GO_IDs of the sub graph except the root terms
-    for go in tqdm(subGOA_df.GO_ID.unique(), leave=False, desc="GO terms"):
-        if go not in ROOT_GO_ID:
-            # Search and store the previous terms of the current GO_ID
-            gosubdag = GoSubDag([go], GO_tree, prt=None,
-                                relationship=optional_relationships)
-            GO_ancestors = gosubdag.rcntobj.go2parents[go]
+    valid_gos = [go for go in subGOA_df.GO_ID.unique() if go in GO_tree and go not in ROOT_GO_ID]
 
-            # Adds in the table the ancestors columns with the annotations of
-            # the heir column
-            fillAncestorsTerms(subGOA_table, go, GO_ancestors)
+    for go in tqdm(valid_gos, leave=False, desc="GO terms"):
+        # Search and store the previous terms of the current GO_ID
+        gosubdag = GoSubDag([go], GO_tree, prt=None,
+                            relationship=optional_relationships)
+        GO_ancestors = gosubdag.rcntobj.go2parents[go]
+
+        # Adds in the table the ancestors columns with the annotations of
+        # the heir column
+        fillAncestorsTerms(subGOA_table, go, GO_ancestors)
 
     # Replace values other than 0 with 1's to remove additions.
     subGOA_table[subGOA_table != 0] = 1

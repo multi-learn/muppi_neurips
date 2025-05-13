@@ -17,9 +17,9 @@ ratio = 1
 
 # Define the paths
 base_dataset_file_path = "../../../summit/config_files/MuPPI_2025_14view_EMF.hdf5"
-output_path = "../../data/dataset_compilation_to_hdf5/balanced/"
+output_path = "../../data/dataset_compilation_to_hdf5/"
 config_base_path = "../../config_files/multi_vs_emf_base.yml"
-config_saving_path = "../../config_files/balanced/"
+config_saving_path = "../../config_files/"
 
 # Create directories
 if not os.path.isdir( output_path[ :-1]):
@@ -68,7 +68,7 @@ for rs in range(n_subsampling):
         yaml.dump(base_config, stream_out)
 
     # Build the HDF5 file for the sub-sampled dataset, compatible wit SuMMIT
-    balanced_database = h5py.File(output_path + "MuPPI_14view_EMF_sub_" + str(rs) + ".hdf5", 'w')
+    balanced_database = h5py.File(output_path + "MuPPI_2025_14view_EMF_sub_" + str(rs) + ".hdf5", 'w')
 
     labels_dset = balanced_database.create_dataset("Labels", data=labels[chosen_indices])
     for att, val in dict(database_unbalanced["Labels"].attrs).items():

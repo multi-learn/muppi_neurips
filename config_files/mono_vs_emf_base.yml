@@ -7,7 +7,7 @@ views:
 pathf: "../data/dataset_compilation_to_hdf5/"
 nice: 0
 random_state: 42
-nb_cores: 8
+nb_cores: 32
 full: False
 debug: False
 res_dir: "../results"
@@ -21,7 +21,7 @@ classes: ['mono_clustered', 'EMF']
 type: ["monoview", "multiview"]
 algos_monoview: ["decision_tree", "random_forest", "imbalance_bagging"]
 algos_multiview: ["weighted_linear_early_fusion", "weighted_linear_late_fusion", "mumbo", "mucombo"]
-stats_iter: 5
+stats_iter: 10
 metrics:
   accuracy_score: {}
   f1_score:
@@ -62,16 +62,6 @@ weighted_linear_late_fusion:
     imbalance_bagging:
       n_estimators: 14
       sampling_strategy: 'auto'
-
-#mvml:
-#  lmbda: 0.1
-#  eta: 0.1
-#  nystrom_param: 1
-#  n_loops: 63
-#  precision: 0.004
-#  learn_A: 0
-#  kernel: 'rbf'
-#  learn_w: 0
 
 mumbo:
   base_estimator:

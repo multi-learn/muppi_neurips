@@ -6,7 +6,7 @@ from torch_geometric.data import Data
 from sklearn.preprocessing import StandardScaler
 
 RAWDATA_DIR = "../../data/rawData/"
-VIEW_DIR = "../../data/PPInetwork_topology_view/"
+VIEW_DIR = "../../data/PPInetwork_Embedding_view/"
 
 
 def load_data():

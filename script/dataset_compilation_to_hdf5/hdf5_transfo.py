@@ -214,7 +214,7 @@ view_nb = 0
 for key in df_dict.keys():
     # Create an array of the current view values and delete the view df to
     # free memory
-    view_data = df_dict[key].values[:, 1:].astype(float)
+    view_data = df_dict[key].values[:, :].astype(float)
     df_dict[key] = []
 
     # Replace np.nan by -1 because they're not supported in hdf5 format
