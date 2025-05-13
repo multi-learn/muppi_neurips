@@ -28,7 +28,7 @@
                   "name": "example_ids",
                   "description": "",
                   "dataType": "float32",
-                  "shape": [7692]
+                  "shape": [13683]
                 }
               ]
             }
