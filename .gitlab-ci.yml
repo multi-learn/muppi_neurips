@@ -1,5 +1,5 @@
 doc:
-    image: registry.gitlab.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+    image: registry.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
     tags:
         - docker
     only:
@@ -15,7 +15,7 @@ doc:
 
 
 pages:
-    image: registry.gitlab.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+    image: registry.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
     tags:
         - docker
     only:
