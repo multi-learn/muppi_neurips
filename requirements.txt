@@ -6,4 +6,6 @@ scipy
 plotly
 goatools
 imbalanced-learn
+summit
+scikit-multimodallearn
 mistune==0.8.4

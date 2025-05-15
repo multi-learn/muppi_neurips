@@ -1,6 +1,6 @@
 New BSD License
 
-Copyright (c) 2020-15-01, The MuPPI-datasets developers.
+Copyright (c) 2025-15-01, The MuPPI-datasets developers.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
