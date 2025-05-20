@@ -1,0 +1,4 @@
+include *.md
+include croissant.json
+include VERSION
+include LICENSE

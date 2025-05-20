@@ -1,4 +1,6 @@
-# Multimodal dataset of protein-protein interactions for the classification of extremely multi-functional proteins: dataset, benchmarks and tools
+
+
+# ![](./docs/images/logo_muppi.png) Multimodal dataset of protein-protein interactions <br/> for the classification of extremely multi-functional proteins: <br/> dataset, benchmarks and tools
 
 
 ## Goal of the GitLab
@@ -128,7 +130,7 @@ sh DownloadRawData.sh
 From the data files in `rawData` and the scripts in the 
 `./script/\*\_view subfolders`, you can reconstruct the dataset. 
 Be careful, the data recovered in several views come from other databases 
-(see [the documentation](https://dev.pages.lis-lab.fr/muppi-dataset-neurips/)) 
+(see [the documentation](https://dev.pages.lis-lab.fr/muppi_neurips/)
 which are regularly updated. It is therefore likely that when recreating the dataset, 
 it is not exactly identical to the one delivered here.
 
@@ -220,16 +222,17 @@ the oversampled dataset is created as output. The artificial data is named in
 **BSD-3-Clause**
 
 ## Copyright
-
+<!--
 Université d'Aix Marseille (AMU) -
 Centre National de la Recherche Scientifique (CNRS) -
 Université de Toulon (UTLN).
 
 Copyright © 2019-2025 AMU, CNRS, UTLN
-
+-->
 ## Authors
-
+<!--
 * **Kossi KOSSIVI**
 * **Alexis PROD'HOMME**
 * **Dominique BENIELLI**
 * **Baptiste BAUVIN**
+-->

@@ -72,7 +72,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'MuPPI Dataset'
-copyright = u'2020, AMU'
+copyright = u'2025, AMU'
 author = u'Alexis Prd Homme'
 
 # The version info for the project you're documenting, acts as replacement for

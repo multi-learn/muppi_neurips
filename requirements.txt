@@ -1,3 +1,5 @@
+scikit-multimodallearn==0.0.3
+summit-multi-learn==0.0.1
 sphinx==5
 pandas
 numpy
@@ -6,5 +8,4 @@ scipy
 plotly
 goatools
 imbalanced-learn
-mistune==0.8.4
-summit-multi-learn==0.0.1
+mistune>=0.8.4

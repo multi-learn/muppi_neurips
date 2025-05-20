@@ -3,7 +3,7 @@
 __pycache__/
 *.py[cod]
 *.so
-
+MuPPI_dataset.egg-info/*
 # Environnements virtuels
 venv/
 env/
@@ -27,7 +27,8 @@ config.yaml
 htmlcov/
 mypy_cache/
 pytest_cache/
-
+.idea
+.gitignore
 # Dépendances et artefacts de build
 dist/
 build/
@@ -37,5 +38,5 @@ pip-wheel-metadata/
 # Datasets et doc
 datasets/
 data/
-doc/
+docs/
 docker/
