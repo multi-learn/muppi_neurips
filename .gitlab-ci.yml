@@ -1,13 +1,13 @@
-doc:
-    image: registry.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+install:
+    image: python:3.11
     tags:
         - docker
     only:
         - main
         - doc
     script:
-        - python3 setup.py install
-        - python3 setup.py build_sphinx
+        - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+        - pip3 install -e .
     artifacts:
         paths:
           - public
@@ -15,13 +15,13 @@ doc:
 
 
 pages:
-    image: registry.lis-lab.fr:5005/dev/muppi-dataset-neurips/ubuntu:22.04
+    image: python:3.11
     tags:
         - docker
     only:
         - main
     script:
-        - python3 setup.py install
+        - pip3 install -e .
         - python3 setup.py build_sphinx
         - cp -r build/sphinx/html public
     artifacts:
