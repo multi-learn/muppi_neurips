@@ -38,5 +38,3 @@ pip-wheel-metadata/
 # Datasets et doc
 datasets/
 data/
-docs/
-docker/
