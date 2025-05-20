@@ -7,3 +7,4 @@ plotly
 goatools
 imbalanced-learn
 mistune==0.8.4
+summit-multi-learn==0.0.1
