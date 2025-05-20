@@ -21,7 +21,7 @@ pages:
     only:
         - main
     script:
-        - pip3 install -e .
+        - pip3 install -e .[doc]
         - python3 setup.py build_sphinx
         - cp -r build/sphinx/html public
     artifacts:
