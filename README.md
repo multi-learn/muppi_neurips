@@ -217,7 +217,7 @@ the oversampled dataset is created as output. The artificial data is named in
 ## Licence
 
 **New BSD License**
-
+**BSD-3-Clause**
 
 ## Copyright
 
@@ -225,10 +225,11 @@ Université d'Aix Marseille (AMU) -
 Centre National de la Recherche Scientifique (CNRS) -
 Université de Toulon (UTLN).
 
-Copyright © 2019-2020 AMU, CNRS, UTLN
+Copyright © 2019-2025 AMU, CNRS, UTLN
 
 ## Authors
 
+* **Kossi KOSSIVI**
 * **Alexis PROD'HOMME**
 * **Dominique BENIELLI**
 * **Baptiste BAUVIN**
