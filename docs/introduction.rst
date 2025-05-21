@@ -1,6 +1,6 @@
 Introduction Benchmark of MuPPI Dataset
 ========================================
-MuPPI dataset aggregates 14 description on 1360 proteins.
+MuPPI dataset (in NoNA release) aggregates 14 description on 8749 proteins.
 
 Here, we present several benchmarks on this dataset, performed with **SUpervised MultiModal Integration Tool**
 (**SuMMIT** platform). Its documentation is available on
@@ -25,21 +25,17 @@ To set a baseline, the selected algorithms are:
     - late fusion, that learns a monoview algorithm for each view and combine their decisions with a majority vote,
     - early fusion, that learns a monoview algorithm on the concatenation of all the views,
     - from  `scikit-multimodallearn <http://dev.pages.lis-lab.fr/scikit-multimodallearn/>`_
-        * MVML ,
         * Mumbo,
         * MuCumbo.
 
-.. warning::
-    MVML has been included in this benchmark, but due to the very high dimensionality (14 views, 15612 combined features), we had to use a very aggressive Nyström approximation to reduce its memory usage, so it is far from it's top performance.
-
 .. note::
-    Bagging, MVML, Mumbo, and MuCombo are not available in the master branch of **SuMMIT**, but are upon request.
+    Bagging, Mumbo, and MuCombo are not available in the master branch of **SuMMIT**, but are upon request.
 
 Learning Tasks
 <<<<<<<<<<<<<<<
 
-The proteins are labeled as `mono_clustered` (5306 proteins), `multi_clustered` (2205 proteins)
-and `EMF` (181 proteins)
+The proteins are labeled as `mono_clustered` (6139 proteins), `multi_clustered` (2413 proteins)
+and `EMF` (197 proteins)
 
 As showed in the following results, we analyzed three tasks :
 
@@ -50,7 +46,7 @@ As showed in the following results, we analyzed three tasks :
 + :ref:`EMF versus multi-clustered <emf_vs_multi>` is the most difficult task, and the most relevant biologically, so we will analyze two reb-balancing methods for this task: `sub-sampling <sub_sampling>`_ and `over-sampling <oversampling>`_
 
 .. note::
-    For each task, a config file for **SuMMIT** is available in the ``./config_file`` directory.
+    For each task, a config file for **SuMMIT** is available in the ``./config_files`` directory.
     The hyper-parameters have been fixed to the best of our knowledge, but we are aware that they still can be optimized.
     We used 75% of the dataset to train each classifier and the remaining 25% to test the classifiers.
 
@@ -60,13 +56,11 @@ Results summary
 +--------------------------+----------------+----------------+---------------+--------------------+
 | Task                     | Max. Accuracy  | Max. f1-score  |  Algorithm    |  View              |
 +==========================+================+================+===============+====================+
-| EMF vs Mono              | 0.99           | **0.84**       | Random Forest | PPINetwork_topology|
+| EMF vs Mono              | 0.99           | **0.82**       | MuCombo       | **Multiview**      |
 +--------------------------+----------------+----------------+---------------+--------------------+
 | Multi vs Mono            | 0.87           | **0.76**       | Random Forest | PPINetwork_topology|
 +--------------------------+----------------+----------------+---------------+--------------------+
-| EMF vs Multi base        | 0.94           | **0.46**       | Early Fusion  | **Multiview**      |
+| EMF vs Multi base        | 0.89           | **0.37**       | Late Fusion   | **Multiview**      |
 +--------------------------+----------------+----------------+---------------+--------------------+
-| EMF vs Multi sub-sample  | 0.77           | **0.77**       | MuCombo       | **Multiview**      |
-+--------------------------+----------------+----------------+---------------+--------------------+
-| EMF vs Multi over-sample | 0.96           | **0.72**       |  Early Fusion | **Multiview**      |
+| EMF vs Multi sub-sample  | 0.78           | **0.80**       | Decision Tree | PPINetwork_topology|
 +--------------------------+----------------+----------------+---------------+--------------------+

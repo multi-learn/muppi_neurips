@@ -61,40 +61,40 @@ Here, J(n,m) is defined for all nodes m that share at least one neighbor with n.
 Subcell location view:
 ----------------------
 | "Subcell_Location.txt" file, and "View1” in the hdf5 file.
-| (9577 examples, 33 features)
+| (10203 examples, 50 features)
 
-| Cell localization data by Immunofluorescence for 9577 proteins, has been gathered from the Human Protein Atlas (HPA).
+| Cell localization data by Immunofluorescence for 10203 proteins, has been gathered from the Human Protein Atlas (HPA).
 | Source: https://www.proteinatlas.org/about/download (file subcellular_location.tsv.zip)
 
-- 33 Cell compartments -float-
+- 50 Cell compartments -float-
 The presence of a protein in a given cell compartment is described by five levels of confidence: Enhanced, Supported, Approved, Uncertain and None. These confidence levels are translated into probabilities ranging from 0 to 1.
 
 Tissue Expression view:
 -----------------------
 | "Tissue_Expression.txt" file, and "View2” in the hdf5 file.
-| (12686 examples, 62 features)
+| (13351 examples, 50 features)
 
-| This view collects RNAseq data for 13318 proteins in 62 tissues. It represents consensus RNAseq data of three datasets: HPA, Gtex and Fantom. For a protein in a given tissue, the expression level stored in the view is the highest among the three datasets.
+| This view collects RNAseq data for 13351 proteins in 50 tissues. It represents consensus RNAseq data of three datasets: HPA, Gtex and Fantom. For a protein in a given tissue, the expression level stored in the view is the highest among the three datasets.
 | Source: https://www.proteinatlas.org/about/download  (file rna_tissue_consensus.tsv.zip)
 
-- 62 Tissues -float-
+- 50 Tissues -float-
 Values are the normalized consensus expression levels.
 
 PPInetwork Embedding view:
 --------------------------
-| "SDNE_PPInetwork.txt" file, and "View3” in the hdf5 file.
-| (13679 examples, 128 features)
+| "SAGE_PPInetwork.txt" file, and "View3” in the hdf5 file.
+| (13683 examples, 128 features)
 
-- This view was generated with a Graph Embedding algorithm (SDNE, for Structural deep network embedding [3]) with as input the PPI network, via the OpenNE library (https://github.com/thunlp/OpenNE). The obtained matrix is 13679x128, with the 13679 proteins described by a vector of 128 floats.
+- This view was generated with a Graph Embedding algorithm (Graph SAGE [3]) with as input the PPI network and topology informations as node attributes, via the Pytorch Geometric library (https://pytorch-geometric.readthedocs.io/en/latest/). The obtained matrix is 13683x128, with the 13683 proteins described by a vector of 128 floats.
 
 Gene Ontology view:
 -------------------
 | "Gene_Ontology_BP.txt" file, and "View4” in the hdf5 file.
-| (12376 examples, 12284 features) ou version light : (12376, 7034)
+| (12422 examples, 10817 features) ou version light : (12422, 6081)
 | "Gene_Ontology_CC.txt" file, and "View5” in the hdf5 file.
-| (12869 examples, 1756 features) ou version light : (12869, 929)
+| (13005 examples, 1743 features) ou version light : (13005, 896)
 | "Gene_Ontology_MF.txt" file, and "View6” in the hdf5 file.
-| (12709 examples, 3602 features) ou version light : (12709, 1423)
+| (13220 examples, 3746 features) ou version light : (13220, 1433)
 
 - This view describes 3 tables (one for each sub-graph GO: Cellular Component (CC), Biological Process (BP) and Molecular Function (MF)) with as index the PPI proteins, and as columns the GO Term of the sub-graph. For a given protein, a 1 indicates the protein is annotated for this GO Term or this GO Term is an ancestor of a protein annotated GO Term.. The other columns are filled with 0's. To define ancestors of a GO Term, the relationships taken into account are "is a", "part of" file, and "regulates". Perfectly identical columns are merged into one, as well as their column names. Thus three identical columns A, B, and C will be merged into one: A_B_C, containing the same information as the first three.
 | The file that lists the GO annotations for each protein :
@@ -106,35 +106,35 @@ Gene Ontology view:
 GO PPInetwork Embedding view:
 -----------------------------
 | "GO-BP_PPInetwork_embed.txt" file, and "View7” in the hdf5 file.
-| (12376 examples, 128 features)
+| (13683 examples, 128 features)
 | "GO-CC_PPInetwork_embed.txt" file, and "View8” in the hdf5 file.
-| (12869 examples, 128 features)
+| (13683 examples, 128 features)
 
-This view was generated with a Graph Embedding (SDNE [3]) algorithm with the weighted PPI network as input, via the OpenNE library (https://github.com/thunlp/OpenNE). The edge weighting is the Jaccard similarity coefficient between the Gene Ontology annotations of the two interacting proteins. Two embedding are performed, the results of two different weightings: one taking into account the Cellular Component annotations, the other the Biological Process annotations. The lists of annotations used for the calculation are those generated for the "Gene Ontology" view.
+This view was generated with a Graph Embedding (Graph SAGE [3]) algorithm with the weighted PPI network as input, via the Pytorch Geometric library (torch-geometric.readthedocs.io/). The edge weighting is the Jaccard similarity coefficient between the Gene Ontology annotations of the two interacting proteins. Two embedding are performed, the results of two different weightings: one taking into account the Cellular Component annotations, the other the Biological Process annotations. The lists of annotations used for the calculation are those generated for the "Gene Ontology" view.
 
 Phenotype Ontology view:
 ------------------------
 | "Phenotype_Ontology.txt" file, and "View9” in the hdf5 file.
-| (13684 examples, 6916 features) ou version light : (13683, 4285)
+| (13683 examples, 9079 features) ou version light : (13683, 5673)
 
-| The Human Phenotype Ontology (HPO) database provides a standardized vocabulary of phenotypic abnormalities encountered in human diseases. Each HPO term describes a phenotypic abnormality, such as blindness. The database is being developed using the medical literature, Orphanet, DECIPHER, and OMIM. The data are organized in a table with the PPI proteins as an index and the columns correspond to the terms HPO. Let's say that the gene coding for a protein A is annotated with a term X, and that this term X has the terms Y and Z as parents and ancestors. Then the table cells in row A and the X, Y and Z columns will be 1's.The table cells with no match will be 0's. The perfectly identical columns are merged into one, along with their column names. So three identical columns A, B and C will be merged into one: A_B_C, containing the same information as the first three. 3416 PPI proteins are encoded by genes annotated by HPO, the remaining 10268 have 0's in each term.
-| Source annotations: https://hpo.jax.org/app/download/annotation (file ALL_SOURCES_ALL_FREQUENCIES_genes_to_phenotype.txt)
-| Source ontology: https://hpo.jax.org/app/download/ontology (file hp.obo)
+| The Human Phenotype Ontology (HPO) database provides a standardized vocabulary of phenotypic abnormalities encountered in human diseases. Each HPO term describes a phenotypic abnormality, such as blindness. The database is being developed using the medical literature, Orphanet, DECIPHER, and OMIM. The data are organized in a table with the PPI proteins as an index and the columns correspond to the terms HPO. Let's say that the gene coding for a protein A is annotated with a term X, and that this term X has the terms Y and Z as parents and ancestors. Then the table cells in row A and the X, Y and Z columns will be 1's.The table cells with no match will be 0's. The perfectly identical columns are merged into one, along with their column names. So three identical columns A, B and C will be merged into one: A_B_C, containing the same information as the first three. 4013 PPI proteins are encoded by genes annotated by HPO, the remaining 9670 have 0's in each term.
+| Source annotations: https://hpo.jax.org/data/annotations (Genes to Phenotype)
+| Source ontology: http://purl.obolibrary.org/obo (file hp.obo)
 
 Protein Domains view:
 ---------------------
 | "Protein_Domains.txt" file, and "View10” in the hdf5 file.
-| (13439 examples, 11909 features) ou version light : (13439, 1439)
+| (13428 examples, 12477 features) ou version light : (13439, 1646)
 
 | The InterPro database characterizes and catalogs protein domains present in known proteins and references them with a unique identifier (ID). In this dataset the lines are the PPI proteins and the features are the Interpro IDs of the domains. This dataset is a count table, so each value corresponds to the number of domains in the column that the protein in the row has. Perfectly identical columns are merged into one, along with their column names. Thus three identical columns A, B and C will be merged into one: A_B_C, containing the same information as the first three.
 | Source : http://www.ebi.ac.uk/interpro/download/
-| (file protein2ipr.dat.gz pour l’annotation des protéines)
-| (file ParentChildTreeFile.txt pour l’arbre de l’ontologie Interpro)
+| (file protein2ipr.dat.gz for protein annotations)
+| (file ParentChildTreeFile.txt for Interpro ontology's tree)
 
 Post Translational Modifications view:
 --------------------------------------
 | "Post_Traductionnal_Modifications.txt" file, and "View11” in the hdf5 file.
-| (12811 examples, 29 features)
+| (13282 examples, 32 features)
 
 | dbPTM data that catalogues post-translational modifications (PTM) on known proteins. In this dataset the rows are the PPI proteins and the columns are the different PTMs. The value in a column for a given protein is the number of PTM sites in that protein.
 | Source : http://dbptm.mbc.nctu.edu.tw/download.php (All downloadable files from section “The statistics of experimental and putative PTM sites in dbPTM”)
@@ -182,7 +182,7 @@ Number of alternative 3’UTR of the RNA coding to the protein
 Linear Motifs view:
 -------------------
 | "Linear_Motifs.txt”, and “View13” in the hdf5 file.
-| (13 683 examples, 329 features)
+| (13 628 examples, 315 features)
 
 | This view collects information on short linear motifs, also known as eukaryotic linear motifs (SLiMs or ELMs), detected in protein sequences as defined by the ELM database [4]. They are predicted by the SLIMProb tool, with a threshold on the motifs mean disorder at 0,4. We keep only ELM classes that have a probability of occurrence under 0,001 in the human proteome, and that been experimentally verified in at least one human protein. Doing so, we have identified putative 163 different ELMs on 9879 PPI proteins.
 | Source of ELM classes and ELM instances (for experimentally proved ones, i.e., true positives) : http://elm.eu.org/downloads.html
@@ -197,49 +197,7 @@ Count of ELMs predicted for a protein and a given ELM classe, divided by the pro
 Number of amino acids of the protein.
 
 - 2 features of Disorder score -float-
-Each amino acid (AA) of a protein have a disorder score, between 0 and 1. It is the probability of the AA to be in a disordered protein region, as opposed to the ordered regions that are protein domains. In those features, we have the average disorder score of each protein. There is two way to calculate it so we have one column for each disorder score. 
-
-Cancer Mutations view:
-----------------------
-| "Cancer_Mutations.txt”, only present in the full.hdf5 file as “View15”.
-| (2 513 718 examples, 11 features)
-
-| The COSMIC database is a catalogue of somatic mutations in cancers. Each line corresponds to a mutation found in the sequencing of cancer cells. The dataset used is the "COSMIC Mutation Data", which combines data from the targeted screens and genome wide screens. 13040 proteins are represented in this dataset.
-| Source: https://cancer.sanger.ac.uk/cosmic/download (file CosmicMutantExport.tsv.gz)
-
-- Primary Site -str- 
-The primary tissue/cancer from which the sample originated.
-
-- Site Subtype 1 -str- 
-Additional subclassification (level 1) of the original tissues of the samples.
-
-- Site Subtype 2 -str- 
-Additional subclassification (level 2) of the original tissues of the samples.
-
-- Site Subtype 3 -str- 
-Additional subclassification (level 3) of the original tissues of the samples.
-
-- Primary Histology -str- 
-The histological classification of the sample.
-
-- Histology Subtype 1 -str- 
-Further histological classification (level 1) of the sample.
-
-- Histology Subtype 2 -str- 
-Further histological classification (level 2) of the sample.
-
-- Histology Subtype 3 -str- 
-Further histological classification (level 3) of the sample.
-
-- SNP -int 0/1- 
-All the known SNPs are flagged as 'y' defined by the 1000 genomes project, dbSNP and a panel of 378 normal (non-cancer) samples from Sanger CGP sequencing.
-
-- FATHMM Score -float- 
-The scores are in the form of pvalues ranging from 0 to 1. Pvalues greater than 0.5 are pathogenic while less than 0.5 are benign. Pvalues close to 0 or 1 are the high 
-confidence results which are more accurate. 
-
-- Mutation somatic status -str- 
-Information on whether the sample was reported to be Confirmed Somatic, Previously Reported or Variant of unknown origin.
+Each amino acid (AA) of a protein have a disorder score, between 0 and 1. It is the probability of the AA to be in a disordered protein region, as opposed to the ordered regions that are protein domains. In those features, we have the average disorder score of each protein. There is two way to calculate it so we have one column for each disorder score.
 
 
 References
@@ -258,4 +216,5 @@ MoonDB : http://moondb.hb.univ-amu.fr/
 =======
 [5] : Diogo M. Ribeiro, Christine Brun et al. The role of 3’UTR-protein complexes in the regulation of protein multifunctionality and subcellular localization. bioRxiv 784702; doi: http://sci-hub.tw/10.1101/784702
 >>>>>>> 165f297bf7c1b5968e50e320c738a58d87fac1b6
+
 
