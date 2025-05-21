@@ -36,5 +36,4 @@ build/
 pip-wheel-metadata/
 
 # Datasets et doc
-datasets/
 data/
