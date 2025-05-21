@@ -22,8 +22,8 @@ pages:
         - main
     script:
         - pip3 install -e .[doc]
-        - python3 setup.py build_sphinx
-        - cp -r build/sphinx/html public
+        - sphinx-build -b html docs docs/build
+        - cp -r docs/build public
     artifacts:
         paths:
           - public
