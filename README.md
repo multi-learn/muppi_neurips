@@ -45,9 +45,6 @@ Here are the different raw data files available :
 	        ├── 3UTR_Complexes_view
 	        │   ├── 3UTR_Complexes_NoNA.txt
 	        │   └── 3UTR_Complexes.txt
-	        ├── Cancer_Mutations_view
-	        │   ├── Cancer_Mutations_numerised.txt
-	        │   ├── Cancer_Mutations.txt
 	        ├── Gene_Ontology_view
 	        │   ├── Gene_Ontology_BP_light.txt
 	        │   ├── Gene_Ontology_BP.txt
