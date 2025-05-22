@@ -80,7 +80,18 @@ jobs:
         with:
           pattern: wheel-*
           path: final-dist
-
+      - name: Flatten and rename wheel files
+        run: |
+          for d in final-dist/wheel-*; do
+            base=$(basename "$d")
+            os_python=${base#wheel-}  # e.g. ubuntu-latest-py3.10
+            for f in "$d"/*.whl; do
+              fname=$(basename "$f")
+              newname="${fname%.whl}__${os_python}.whl"
+              mv "$f" "final-dist/$newname"
+            done
+            rm -r "$d"
+          done
       - name: Upload unified dist folder
         uses: actions/upload-artifact@v4
         with:
