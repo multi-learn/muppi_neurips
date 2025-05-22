@@ -31,10 +31,6 @@ jobs:
         with:
           name: dist-${{ matrix.os }}
           path: dist/
-      - name: Create source zip on Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          powershell Compress-Archive -Path dist\muppi_dataset-*.tar.gz -DestinationPath dist\muppi_dataset.zip
   wheel:
     needs: sdist
     name: Build on ${{ matrix.os }} with Python ${{ matrix.python-version }}
