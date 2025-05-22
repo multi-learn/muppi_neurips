@@ -75,7 +75,6 @@ jobs:
       - name: Download sdist
         uses: actions/download-artifact@v4
         with:
-          name: sdist
           path: final-dist
 
       - name: Download all wheels
@@ -83,6 +82,18 @@ jobs:
         with:
           pattern: wheel-*
           path: final-dist
+      - name: Flatten and rename source distributions
+        run: |
+          for d in final-dist/sdist-*; do
+            base=$(basename "$d")
+            os_python=${base#sdist-}  # e.g. ubuntu-latest-py3.10
+            for f in "$d"/*.tar.gz; do
+              fname=$(basename "$f")
+              newname="${fname%.tar.gz}__${os_python}.tar.gz"
+              mv "$f" "final-dist/$newname"
+            done
+            rm -r "$d"
+          done
       - name: Flatten and rename wheel files
         run: |
           for d in final-dist/wheel-*; do
