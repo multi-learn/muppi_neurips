@@ -194,6 +194,25 @@ the oversampled dataset is created as output. The artificial data is named in
 ---
 ---
 
+## Run SuMMIT
+
+To launch SuMMIT execution and produce a benchmark with results, we provide 
+[five configuration files](./config_files) and a Python script named 
+[`run_summit`](./script/run_summit.py) that needed to add the wanted task's configuration
+file path as argument. For example, for the base Multi vs EMF task, you should
+execute:
+```
+cd ./script
+python run_summit.py --config_path multi_vs_emf_base.yml
+```
+
+This will create a `./results` directory that contains all the execution results.
+To fully understand how SuMMIT works, please take a look on this
+[tutorial](https://baptiste.bauvin.pages.lis-lab.fr/summit/tutorials/index.html).
+
+---
+---
+
 ## References
 
 <a name="ref_1"></a>
