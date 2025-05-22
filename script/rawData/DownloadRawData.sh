@@ -2,8 +2,10 @@
 
 # CHANGED: Using rawData_minimal instead of rawData
 # Decompress data directory and go to the rawData directory
-cd ../..
-unzip datasets/data.zip
+cd ../../
+wget https://huggingface.co/datasets/multilearn/muppi/resolve/main/data.zip
+unzip data.zip
+rm data.zip
 cd data/rawData
 
 # download the ID map from uniprot
