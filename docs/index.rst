@@ -32,7 +32,7 @@ Documentation
    :maxdepth: 3
    :caption: Contents:
 
-   readme_link
+   ../README.md
    dataset
    benchmark
 
