@@ -33,6 +33,12 @@ jobs:
       - name: Build the package
         run: python -m build
 
+      - name: Upload build dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
 
   collect:
     name: Collect all wheels and source into final artifact
@@ -40,10 +46,10 @@ jobs:
     needs: build
 
     steps:
-      - name: Download all wheels
+      - name: Download all dist
         uses: actions/download-artifact@v4
         with:
-          pattern: wheel-*
+          pattern: dist
           path: final-dist
 
       - name: Download source dist
