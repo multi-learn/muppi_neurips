@@ -90,19 +90,17 @@ jobs:
         run: |
           shopt -s nullglob
           for d in final-dist/dist-*; do
-            if [[ "$fname" == *.tar.gz ]]; then
-                base_name="${fname%.tar.gz}"
-                ext="tar.gz"
-            else
-                base_name="${fname%.zip}"
-                ext="zip"
-            fi
             base=$(basename "$d")
             os=${base#dist-}
             for f in "$d"/*.tar.gz "$d"/*.zip; do
               fname=$(basename "$f")
-              ext="${fname##*.}"
-              base_name="${fname%%.*}"  # keep only the base without version extension
+              if [[ "$fname" == *.tar.gz ]]; then
+                base_name="${fname%.tar.gz}"
+                ext="tar.gz"
+              else
+                base_name="${fname%.zip}"
+                ext="zip"
+              fi
               newname="${base_name}__${os}.${ext}"
               mv "$f" "final-dist/$newname"
             done
