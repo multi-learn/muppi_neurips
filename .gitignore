@@ -18,8 +18,7 @@ env/
 .env
 *.ini
 *.json
-*.toml
-config.yaml
+#config.yaml
 
 # Outils de dev
 .coverage
