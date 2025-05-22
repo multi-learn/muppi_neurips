@@ -207,14 +207,9 @@ References
 [2] : Ribeiro, D. M., Briere, G., Bely, B., Spinelli, L. & Brun, C. MoonDB 2.0: an updated database of extreme multifunctional and moonlighting proteins. Nucleic Acids Res. 47, D398–D402 (2019).
 MoonDB : http://moondb.hb.univ-amu.fr/
 
-[3] : D. Wang, P. Cui, W. Zhu, Structural deep network embedding, in: Proceedings of the 22nd International Conference on Knowledge Discovery and Data Mining, ACM, 2016, pp. 1225–1234.
+[3] : William L. Hamilton, Rex Ying, and Jure Leskovec. Inductive representation learning on large graphs, 2018.
 
 [4] : Kumar M1, Gibson TJ1 et al. ELM-the eukaryotic linear motif resource in 2020. Nucleic Acids Res. 48, D296-D306 (2020).
 
-<<<<<<< HEAD
 [5] : Diogo M. Ribeiro, Christine Brun et al. The role of 3’UTR-protein complexes in the regulation of protein multifunctionality and subcellular localization. bioRxiv 784702; doi: https://doi.org/10.1101/784702
-=======
-[5] : Diogo M. Ribeiro, Christine Brun et al. The role of 3’UTR-protein complexes in the regulation of protein multifunctionality and subcellular localization. bioRxiv 784702; doi: http://sci-hub.tw/10.1101/784702
->>>>>>> 165f297bf7c1b5968e50e320c738a58d87fac1b6
-
 
