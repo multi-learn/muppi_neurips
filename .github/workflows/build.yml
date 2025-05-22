@@ -92,9 +92,9 @@ jobs:
                     fname=$(basename "$f")
                     newname="${fname%.tar.gz}__${os}.tar.gz"
                     mv "$f" "final-dist/$newname"
-            done
+                done
             rm -r "$d"
-  
+            done
       - name: Flatten and rename wheel files
         run: |
           for d in final-dist/wheel-*; do
@@ -118,6 +118,27 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Build release
+          body: |
+            📦 **Upload convienient file :**
+              - `muppi_dataset-<version>.tar.gz` (source)
+              - `muppi_dataset-<version>.zip` (source)
+              - `muppi_dataset-<version>__<os>_py<version>.whl` (binaires)
+
+            💡 **Install from binary:**
+              ```bash
+              pip install muppi_dataset-<version>__<os>_py<version>.whl
+              ```
+             🛠️ **Install from source:**
+              ```bash.
+              pip install muppi_dataset-<version>.(zip or tar.gz)
+              ```
+             🧑‍💻 **Install from code:**
+             ```bash
+             git clone https://github.com/multi-learn/muppi_neurips.git
+             cd muppi_neurips
+             pip install -e .
+             ```
+             🚫 Ignore  “Source code (zip/tar.gz)”
           tag_name: dist-${{ github.run_number }}
           files: final-dist/*
         env:
