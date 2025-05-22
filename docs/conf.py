@@ -53,7 +53,18 @@ extensions = ['sphinx.ext.autodoc',
                'sphinx.ext.napoleon',
                 "myst_parser",
               ]
-
+myst_enable_extensions = [
+    "colon_fence",
+    "deflist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "substitution",
+    "tasklist",
+    "mdinclude",        # Permet la directive .. mdinclude::
+]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -62,7 +73,10 @@ templates_path = ['_templates']
 #
 # source_suffix = {'.rst': 'restructuredtext', '.md': 'markdown'}
 # source_suffix = '.rst'
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # source_parsers = {
 #  '.md': CommonMarkParser,
