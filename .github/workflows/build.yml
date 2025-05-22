@@ -3,36 +3,112 @@ name: Build Python Packages (Linux & Windows)
 on:
   push:
     branches: [main]
+    tags: ["*"] 
   pull_request:
 
 jobs:
-  build:
+  sdist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install build tool
+        run: pip install build
+
+      - name: Build source distribution
+        run: python -m build --sdist
+
+      - name: Upload sdist
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/
+  wheel:
+    needs: sdist
+    name: Build on ${{ matrix.os }} with Python ${{ matrix.python-version }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.10, 3.11]
+        python-version: ["3.10", "3.11"]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name:  Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name:  Set up Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name:  Install build dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build
+      - name: Install build dependencies
+        run: pip install build
 
-      - name:  Build the package
-        run: python -m build
+      - name: Build wheel
+        run: python -m build --wheel
 
-      - name:  Upload dist artifacts
+      - name: Upload build wheel
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ matrix.os }}-py${{ matrix.python-version }}
+          name: wheel-${{ matrix.os }}-py${{ matrix.python-version }}
           path: dist/
+          retention-days: 1
+
+  collect:
+    name: Collect all wheels and source into final artifact
+    runs-on: ubuntu-latest
+    needs: [sdist, wheel]
+
+    steps:
+      - name: Create final-dist directory
+        run: mkdir final-dist
+        
+      - name: Download sdist
+        uses: actions/download-artifact@v4
+        with:
+          name: sdist
+          path: final-dist
+
+      - name: Download all wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheel-*
+          path: final-dist
+      - name: Flatten and rename wheel files
+        run: |
+          for d in final-dist/wheel-*; do
+            base=$(basename "$d")
+            os_python=${base#wheel-}  # e.g. ubuntu-latest-py3.10
+            for f in "$d"/*.whl; do
+              fname=$(basename "$f")
+              newname="${fname%.whl}__${os_python}.whl"
+              mv "$f" "final-dist/$newname"
+            done
+            rm -r "$d"
+          done
+      - name: Upload unified dist folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-muppi-neurips
+          path: final-dist/
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Build release
+          tag_name: dist-${{ github.run_number }}
+          files: final-dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up previous builds
+        run: rm -rf final-dist && mkdir final-dist
+
+
