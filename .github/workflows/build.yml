@@ -146,7 +146,7 @@ jobs:
              pip install -e .
              ```
              🚫 Ignore  “Source code (zip/tar.gz)”
-          tag_name: dist-${{ github.run_number }}
+          tag_name:  ${{ github.ref_name }}
           files: final-dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
