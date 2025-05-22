@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=42", "setuptools-scm", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'MuPPI_dataset'
+dynamic = ["version", 'dependencies', "license"]
+requires-python = '<3.12'
+description = "Code of MuPPI dataset generation"
+readme = {file = "README.md", content-type = "text/markdown"}
+classifiers=[
+    "Programming Language :: Python",
+    "Development Status :: 1 - Planning",
+    'Intended Audience :: Science/Research',
+    "Natural Language :: English",
+    "Operating System :: Linux",
+    "Programming Language :: Python :: 2/3",
+    "Topic :: Machine Learning",
+    "Topic :: Bio-Informatics"]
+
+authors = [
+    {name = "Dev Lis", email = "contact.dev@lis-lab.fr"}
+]
+keywords = ['dataset, biology, protein-protein interactions, machine learning, supervised learning, classification, tool, multiview learning, monoview learning']
+
+[project.optional-dependencies]
+doc = ['sphinx >= 3.0.2', 'numpydoc', 'docutils', 'sphinx-autoapi',
+    'sphinx_rtd_theme']
+
+[project.urls]
+"Sources" = 'https://github.com/multi-learn/muppi_neurips'
+Documentation  = 'https://dev.pages.lis-lab.fr/muppi_neurips/'
+"Bug Tracker" = 'https://github.com/multi-learn/muppi_neurips/issues'
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["."]
+
