@@ -249,6 +249,13 @@ This will create a `./results` directory that contains all the execution results
 To fully understand how SuMMIT works, please take a look on this
 [tutorial](https://baptiste.bauvin.pages.lis-lab.fr/summit/tutorials/index.html).
 
+
+---
+---
+
+## Muppi Simplified Test
+We also provide a notebook (`./scripts/test_muppi_with_mucombo`) that you can use to easily download and test the dataset with a multi-modal algorithm.
+
 ---
 ---
 
