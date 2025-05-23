@@ -11,3 +11,5 @@ plotly
 goatools
 imbalanced-learn
 mistune>=0.8.4
+torch>=2.0.0
+torch-geometric>=2.3.0
