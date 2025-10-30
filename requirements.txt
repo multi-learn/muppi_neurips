@@ -1,5 +1,5 @@
-scikit-multimodallearn==0.0.3
-summit-multi-learn==0.0.1
+scikit-multimodallearn==0.1.0
+summit-multi-learn==0.0.2
 sphinx>=5,<6
 myst-parser>=0.18,<0.19
 docutils<0.21
